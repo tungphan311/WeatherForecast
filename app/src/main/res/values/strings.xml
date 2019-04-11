@@ -8,4 +8,7 @@
     <string name="weather.refresh">Refresh</string>
     <string name="dialog.city.header">Select your city</string>
     <string name="dialog.city.pattern">Enter the name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
