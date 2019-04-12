@@ -190,9 +190,9 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "TODAY";
+                    return "NOW";
                 case 1:
-                    return "TOMORROW";
+                    return "TODAY";
                 case 2:
                     return "7 days";
             }

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d7d7d7"
+
     android:orientation="vertical">
 
 
@@ -23,7 +23,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="Ho Chi Minh City"
-            android:textColor="#000"
             android:textSize="24sp" />
 
         <TextView
@@ -34,7 +33,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="Monday, 25 August"
-            android:textColor="#000"
             android:textSize="14sp" />
 
         <TextView
@@ -44,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:textColor="#000"
             android:text="Trời nhiều mây"
             android:textSize="14sp" />
 
@@ -59,7 +56,6 @@
                 style="@style/TextAppearance.AppCompat.Display4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
                 android:text="0" />
 
             <TextView
@@ -67,7 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="o"
-                android:textColor="#000"
                 android:layout_toRightOf="@+id/temp"
                 android:layout_marginTop="20sp"
                 android:textSize="26sp" />
@@ -85,15 +80,16 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/icons8_horizontal_line_blue"
+        android:tint="@color/primary_gray"
         android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/description"
         android:text="Nhiệt độ "
-        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -102,7 +98,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/icons8_horizontal_line_blue"
+        android:tint="@color/primary_gray"
         android:scaleType="fitXY"/>
 
     <LinearLayout
@@ -146,7 +145,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 style="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#000"
                 android:text="Time"/>
         </LinearLayout>
 
@@ -181,7 +179,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 style="@style/TextAppearance.AppCompat.Small"
-                android:textColor="#000"
                 android:text="Time"/>
         </LinearLayout>
     </LinearLayout>
@@ -192,6 +189,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/icons8_horizontal_line_blue"
+        android:tint="@color/primary_gray"
         android:scaleType="fitXY"/>
 
     <LinearLayout
@@ -225,6 +223,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:tint="@color/primary_gray"
                     android:src="@drawable/humidity"/>
             </LinearLayout>
 
@@ -235,7 +234,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="#000"
                 android:text="Hum"/>
         </LinearLayout>
 
@@ -260,6 +258,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:tint="@color/primary_gray"
                     android:src="@drawable/pressure"/>
             </LinearLayout>
 
@@ -270,7 +269,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="#000"
                 android:text="Pressure"/>
         </LinearLayout>
     </LinearLayout>
@@ -281,6 +279,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/icons8_horizontal_line_blue"
+        android:tint="@color/primary_gray"
         android:scaleType="fitXY"/>
 
     <LinearLayout
@@ -314,6 +313,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:tint="@color/primary_gray"
                     android:src="@drawable/wind"/>
             </LinearLayout>
 
@@ -324,7 +324,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="#000"
                 android:text="Wind"/>
         </LinearLayout>
 
@@ -354,7 +353,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="#000"
                 android:text="Visibility"/>
         </LinearLayout>
     </LinearLayout>
@@ -362,6 +360,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:src="@drawable/icons8_horizontal_line_blue"
+        android:tint="@color/primary_gray"
         android:scaleType="fitXY"/>
 </LinearLayout>
