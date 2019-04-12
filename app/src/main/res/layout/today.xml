@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#d7d7d7"
     android:orientation="vertical">
 
 
@@ -22,6 +23,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:text="Ho Chi Minh City"
+            android:textColor="#000"
             android:textSize="24sp" />
 
         <TextView
@@ -32,6 +34,18 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:text="Monday, 25 August"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/weather"
+            style="@style/TextAppearance.AppCompat.Display4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:textColor="#000"
+            android:text="Trời nhiều mây"
             android:textSize="14sp" />
 
         <RelativeLayout
@@ -45,6 +59,7 @@
                 style="@style/TextAppearance.AppCompat.Display4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000"
                 android:text="0" />
 
             <TextView
@@ -52,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="o"
+                android:textColor="#000"
                 android:layout_toRightOf="@+id/temp"
                 android:layout_marginTop="20sp"
                 android:textSize="26sp" />
@@ -67,58 +83,285 @@
             android:scaleType="fitXY" />
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icons8_horizontal_line_blue"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:text="Nhiệt độ "
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icons8_horizontal_line_blue"
+        android:scaleType="fitXY"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="110dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
 
-        <ImageView
-            android:layout_width="@dimen/weather_icon"
-            android:layout_height="@dimen/weather_icon"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/humidity" />
-
-        <TextView
-            android:id="@+id/hum"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="hum" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/weather_icon"
-            android:layout_height="@dimen/weather_icon"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/pressure" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MT mọc"
+                    android:textSize="12sp"/>
 
-        <TextView
-            android:id="@+id/pressure"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/icons8_sunrise_filled_50"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sunrise"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000"
+                android:text="Time"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="press" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/weather_icon"
-            android:layout_height="@dimen/weather_icon"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/wind" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/wind"
-            style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="wind" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MT lặn"
+                    android:textSize="12sp"/>
 
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/icons8_sunset_50"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sunset"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#000"
+                android:text="Time"/>
+        </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icons8_horizontal_line_blue"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Độ ẩm"
+                    android:textSize="12sp"/>
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/humidity"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/hum"
+                android:layout_marginTop="5dp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="Hum"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Áp suất"
+                    android:textSize="12sp"/>
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/pressure"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pressure"
+                android:layout_marginTop="5dp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="Pressure"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icons8_horizontal_line_blue"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gió"
+                    android:textSize="12sp"/>
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/wind"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/wind"
+                android:layout_marginTop="5dp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="Wind"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tầm nhìn xa"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/visibility"
+                android:layout_marginTop="5dp"
+                style="@style/TextAppearance.AppCompat.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="Visibility"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icons8_horizontal_line_blue"
+        android:scaleType="fitXY"/>
 </LinearLayout>
