@@ -45,10 +45,10 @@ public class TodayAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        ViewHolder viewHolder;
+        TodayAdapter.ViewHolder viewHolder = null;
 
         if (view == null) {
-            viewHolder = new ViewHolder();
+            viewHolder = new TodayAdapter.ViewHolder();
 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.lvweather, null);
@@ -65,7 +65,7 @@ public class TodayAdapter extends BaseAdapter {
             view.setTag(viewHolder);
         }
         else {
-            viewHolder = (ViewHolder) view.getTag();
+            viewHolder = (TodayAdapter.ViewHolder) view.getTag();
         }
 
         Weather weather = (Weather) getItem(position);
