@@ -128,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MT mọc"
+                    android:text="Sunrise"
                     android:textSize="12sp"/>
 
                 <ImageView
@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MT lặn"
+                    android:text="Sunset"
                     android:textSize="12sp"/>
 
                 <ImageView
@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Độ ẩm"
+                    android:text="Humidity"
                     android:textSize="12sp"/>
 
                 <ImageView
@@ -251,7 +251,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Áp suất"
+                    android:text="Pressure"
                     android:textSize="12sp"/>
 
                 <ImageView
@@ -306,7 +306,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gió"
+                    android:text="Wind"
                     android:textSize="12sp"/>
 
                 <ImageView
@@ -341,7 +341,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tầm nhìn xa"
+                    android:text="Visibility"
                     android:textSize="12sp"/>
 
             </LinearLayout>

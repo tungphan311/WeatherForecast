@@ -108,7 +108,7 @@ public class TodayFragment extends Fragment {
 
                             JSONObject jsonObjectWind = jsonObject.getJSONObject("wind");
                             String speed = jsonObjectWind.getString("speed");
-                            txtWind.setText(speed + "m/s");
+                            txtWind.setText(speed + " m/s");
 
                             String visibility = jsonObject.getString("visibility");
                             int visi = Integer.valueOf(visibility);
