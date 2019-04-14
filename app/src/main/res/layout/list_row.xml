@@ -17,6 +17,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/linearlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -28,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="16:00"
-                android:textColor="?android:textColorPrimary"
-                android:textSize="16sp"
+                android:textColor="#000"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,16 +63,14 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+
         <ImageView
             android:id="@+id/itemIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/itemTemperature"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:textSize="48sp" />
 
         <TextView
@@ -81,8 +80,8 @@
             tools:text="0 °C"
             android:textSize="22sp"
             android:layout_marginTop="8dp"
-            android:layout_below="@+id/itemIcon"
-            android:layout_alignRight="@+id/itemIcon"
-            android:layout_alignEnd="@+id/itemIcon" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </LinearLayout>

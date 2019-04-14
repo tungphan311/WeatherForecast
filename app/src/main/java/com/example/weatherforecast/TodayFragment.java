@@ -44,7 +44,7 @@ public class TodayFragment extends Fragment {
         View view = inflater.inflate(R.layout.today, container, false);
         initData(view);
 
-        GetCurrentWeather("SaiGon");
+        GetCurrentWeather("1580578");
         return view;
     }
 
@@ -64,7 +64,7 @@ public class TodayFragment extends Fragment {
 
     public void GetCurrentWeather(String data) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
-        String url = "https://api.openweathermap.org/data/2.5/weather?q=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&units=metric";
+        String url = "https://api.openweathermap.org/data/2.5/weather?id=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&units=metric";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

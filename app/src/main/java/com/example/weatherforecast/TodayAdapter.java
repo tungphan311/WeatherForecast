@@ -37,47 +37,33 @@ public class TodayAdapter extends BaseAdapter {
         return position;
     }
 
-    public class ViewHolder {
-        LinearLayout llOneHour;
-        TextView tvHour, tvRealTemp, tvFeelTemp, tvIconPhrase, tvHum, tvRain;
-        ImageView imgIcon;
-    }
-
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        TodayAdapter.ViewHolder viewHolder = null;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.lvweather, null);
 
-        if (view == null) {
-            viewHolder = new TodayAdapter.ViewHolder();
+        TextView tvHour, tvMinTemp, tvMaxTemp, tvIconPhrase, tvHum, tvWind;
+        ImageView imgIcon;
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.lvweather, null);
+        tvHour = view.findViewById(R.id.hour);
+        tvMinTemp = view.findViewById(R.id.mintemp);
+        tvMaxTemp = view.findViewById(R.id.maxtemp);
+        tvIconPhrase = view.findViewById(R.id.iconphrase);
+        tvHum = view.findViewById(R.id.hum);
+        tvWind = view.findViewById(R.id.wind);
+        imgIcon = view.findViewById(R.id.weathericon);
 
-            viewHolder.llOneHour = view.findViewById(R.id.oneHours);
-            viewHolder.tvHour = view.findViewById(R.id.hour);
-            viewHolder.tvRealTemp = view.findViewById(R.id.realtemp);
-            viewHolder.tvFeelTemp = view.findViewById(R.id.feeltemp);
-            viewHolder.tvIconPhrase = view.findViewById(R.id.iconphrase);
-            viewHolder.tvHum = view.findViewById(R.id.hum);
-            viewHolder.tvRain = view.findViewById(R.id.rain);
-            viewHolder.imgIcon = view.findViewById(R.id.weathericon);
+        Weather weather = listWeather.get(position);
 
-            view.setTag(viewHolder);
-        }
-        else {
-            viewHolder = (TodayAdapter.ViewHolder) view.getTag();
-        }
-
-        Weather weather = (Weather) getItem(position);
-
-        viewHolder.tvHour.setText(weather.getHour());
-        viewHolder.tvRealTemp.setText(weather.getRealtemp() + (char)0x00B0 + "C");
-        viewHolder.tvFeelTemp.setText(weather.getFeeltemp() + (char)0x00B0 + "C");
-        viewHolder.tvIconPhrase.setText("Điều kiện thời tiết: " + weather.getIconphrase());
-        viewHolder.tvHum.setText("Độ ẩm: " + weather.getHum() + "%");
-        viewHolder.tvRain.setText("Khả năng mưa: " + weather.getRain() + "%");
-        Picasso.with(context).load(weather.getIcon()).into(viewHolder.imgIcon);
+        tvHour.setText(weather.hour);
+        tvMinTemp.setText(weather.mintemp + (char)0x00B0 + "C");
+        tvMaxTemp.setText(weather.maxtemp + (char)0x00B0 + "C");
+        tvIconPhrase.setText("Weather Condition: " + weather.iconphrase);
+        tvHum.setText("Humidity: " + weather.hum + "%");
+        tvWind.setText("Wind speed: " + weather.wind + " m/s");
+        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.icon +".png").into(imgIcon);
 
         return view;
     }
+
 }

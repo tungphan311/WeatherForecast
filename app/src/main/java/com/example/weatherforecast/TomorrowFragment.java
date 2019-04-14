@@ -59,75 +59,70 @@ public class TomorrowFragment extends Fragment {
 
         initView(view);
 
-        initData();
+        initData("1580578");
 
         return view;
     }
 
     public void initView(View view) {
-        listWeather = new ArrayList<>();
+        listWeather = new ArrayList<Weather>();
         adapter = new TodayAdapter(getActivity().getApplicationContext(), listWeather);
         listView = view.findViewById(R.id.listview);
         listView.setAdapter(adapter);
     }
 
-    public void initData() {
+    public void initData(String data) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = "http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/700000?apikey=hAaFwVWe0OfIbCw8aqUHkuNltaZKTj65&language=vi-vn";
+        String url = "https://api.openweathermap.org/data/2.5/forecast/hourly?id=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&cnt=24&units=metric";
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                //Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                String hour = "";
-                String realtemp = "";
-                String feeltemp = "";
-                String iconphrase = "";
-                String hum = "";
-                String rain = "";
-                String icon = "";
-                String iconurl = "";
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("list");
+                    for (int i=0; i<jsonArray.length(); i++) {
+                        JSONObject jsonObjectList = jsonArray.getJSONObject(i);
 
-                if (response != null) {
-                    String size = String.valueOf(response.length());
-                    Toast.makeText(getActivity().getApplicationContext(), size, Toast.LENGTH_SHORT).show();
-                    try {
-                        for (int i = 0; i < response.length(); i++) {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            hour = jsonObject.getString("EpochDateTime");
-                            long l = Long.valueOf(hour);
-                            Date date = new Date(l * 1000L);
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-                            String Day = simpleDateFormat.format(date);
+                        String time = jsonObjectList.getString("dt");
+                        long l = Long.valueOf(time);
+                        Date date = new Date(l*1000L);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                        String hour = simpleDateFormat.format(date);
 
-                            JSONObject jsonObjectTemp = jsonObject.getJSONObject("Temperature");
-                            realtemp = jsonObjectTemp.getString("Value");
+                        JSONObject jsonObjectTemp = jsonObjectList.getJSONObject("main");
+                        String minTemp = jsonObjectTemp.getString("temp_min");
+                        String maxTemp = jsonObjectTemp.getString("temp_max");
+                        Double max = Double.valueOf(maxTemp);
+                        String MaxTemp = String.valueOf(max.intValue());
+                        Double min = Double.valueOf(minTemp);
+                        String MinTemp = String.valueOf(min.intValue());
+                        String hum = jsonObjectTemp.getString("humidity");
 
-                            JSONObject jsonObjectFeelTemp = jsonObject.getJSONObject("RealFeelTemperature");
-                            feeltemp = jsonObjectFeelTemp.getString("Value");
+                        JSONArray jsonArrayWeather = jsonObjectList.getJSONArray("weather");
+                        JSONObject jsonObjectWeather = jsonArrayWeather.getJSONObject(0);
+                        String status = jsonObjectWeather.getString("description");
+                        String icon = jsonObjectWeather.getString("icon");
 
-                            iconphrase = jsonObject.getString("IconPhrase");
-                            hum = jsonObject.getString("RelativeHumidity");
-                            rain = jsonObject.getString("RainProbability");
-                            icon = jsonObject.getString("WeatherIcon");
-                            iconurl = "https://developer.accuweather.com/sites/default/files/" + icon + "-s.png";
+                        JSONObject jsonObjectWind = jsonObjectList.getJSONObject("wind");
+                        String wind = jsonObjectWind.getString("speed");
 
-                            listWeather.add(new Weather(Day, iconurl, realtemp, feeltemp, iconphrase, hum, rain));
-                            adapter.notifyDataSetChanged();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        listWeather.add(new Weather(hour, icon, MinTemp, MaxTemp, status, hum, wind));
                     }
+                    adapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity().getApplicationContext(), "get list error", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        requestQueue.add(jsonArrayRequest);
+        requestQueue.add(stringRequest);
     }
 
 }

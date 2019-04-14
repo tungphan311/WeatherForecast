@@ -6,13 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SevenDaysFragment extends Fragment {
 
+    ListView listView;
+    SevendayAdapter adapter;
+    ArrayList<OneDay> listDay;
 
     public SevenDaysFragment() {
         // Required empty public constructor
@@ -24,7 +31,21 @@ public class SevenDaysFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.day_of_week, container, false);
 
+        initView(view);
+
+        initData();
+
         return view;
+    }
+
+    public void initView(View view) {
+        listView = view.findViewById(R.id.lv_7day);
+        listDay = new ArrayList<OneDay>();
+        adapter = new SevendayAdapter(getActivity().getApplicationContext(), listDay);
+        listView.setAdapter(adapter);
+    }
+
+    private void initData() {
     }
 
 }
