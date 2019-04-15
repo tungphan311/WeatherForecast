@@ -25,9 +25,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,11 +84,25 @@ public class SevenDaysFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("list");
-                    for (int i=0; i<jsonArray.length(); i++) {
+                    for (int i=0; i<jsonArray.length(); i+=8) {
                         JSONObject jsonObjectList = jsonArray.getJSONObject(i);
 
-                        String hour = jsonObjectList.getString("dt_txt");
-//                        String hour = time.substring(0,11);
+                        String time = jsonObjectList.getString("dt_txt");
+                        String hour = time.substring(0,11);
+
+                        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+
+                        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM d");
+
+                        String convertedDate = null;
+                        try {
+                            convertedDate = formatter.format(f.parse(hour));
+                        } catch (ParseException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        hour=convertedDate;
+
 
                         JSONObject jsonObjectTemp = jsonObjectList.getJSONObject("main");
                         String minTemp = jsonObjectTemp.getString("temp_min");
