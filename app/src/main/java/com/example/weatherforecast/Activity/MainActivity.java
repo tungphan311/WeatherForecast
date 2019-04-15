@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.weatherforecast.Fragment.TodayFragment;
 import com.example.weatherforecast.Fragment.TomorrowFragment;
 import com.example.weatherforecast.R;
-import com.example.weatherforecast.SevenDaysFragment;
+import com.example.weatherforecast.Fragment.SevenDaysFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
             String ID = intent.getStringExtra("id");
 
             if (ID == null) {
-                data = "1580578";
+//                data = "1580578";
+                data="10.83&lon=106.67";
             }
             else {
                 data = ID;

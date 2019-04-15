@@ -74,7 +74,7 @@ public class TomorrowFragment extends Fragment {
 
     public void initData(String data) {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url = "https://api.openweathermap.org/data/2.5/forecast/hourly?id=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&cnt=24&units=metric";
+        String url = "https://api.openweathermap.org/data/2.5/forecast/hourly?lat=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&cnt=24&units=metric";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

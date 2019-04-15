@@ -67,7 +67,7 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
 //        GetCurrentWeather("1580578");
 
 
-        MainActivity main = (MainActivity) getActivity();
+//        MainActivity main = (MainActivity) getActivity();
 
         //GetCurrentWeather(main.data);
 
@@ -155,6 +155,9 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
         int pos = data.indexOf(",");
         lat = data.substring(0,pos);
         lon = data.substring(pos+1);
+
+        MainActivity main = (MainActivity)getActivity();
+        main.data=lat+"&lon="+lon;
 
         GetCurrentWeather(lat+"&lon="+lon);
         Log.d("zz2", "onCreateView: txt" +txtName.getText().toString());
