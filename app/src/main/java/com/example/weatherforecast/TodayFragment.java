@@ -41,7 +41,7 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
     ImageView imgWeatherIcon;
     private SamplePresenter samplePresenter;
     private ProgressDialog progressDialog;
-
+    String data,lat,lon;
     public TodayFragment() {
         // Required empty public constructor
     }
@@ -54,7 +54,8 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
         View view = inflater.inflate(R.layout.today, container, false);
         initData(view);
 
-        GetCurrentWeather("1580578");
+
+//        GetCurrentWeather("1580578");
 
 
         return view;
@@ -124,7 +125,7 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
     @Override
     public String getText() {
 
-        Log.d("zz", "onCreateView: txt" +txtName.getText().toString());
+        Log.d("zz1", "onCreateView: txt" +txtName.getText().toString());
         return txtName.getText().toString();
 
     }
@@ -133,7 +134,15 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
     public void setText(String text) {
         txtName.clearComposingText();
         txtName.setText(text);
-        Log.d("zz", "onCreateView: txt" +txtName.getText().toString());
+        data = txtName.getText().toString();
+//        lat =  data.substring(0,10);
+//        lon = data.substring(data.length()-11);
+        int pos = data.indexOf(",");
+        lat = data.substring(0,pos);
+        lon = data.substring(pos+1);
+
+        GetCurrentWeather(lat+"&lon="+lon);
+        Log.d("zz2", "onCreateView: txt" +txtName.getText().toString());
     }
 
     @Override
@@ -167,7 +176,8 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
 
     public void GetCurrentWeather(String data) {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
-        String url = "https://api.openweathermap.org/data/2.5/weather?id=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&units=metric";
+//        String url = "https://api.openweathermap.org/data/2.5/weather?id=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&units=metric";
+        String url = "https://api.openweathermap.org/data/2.5/weather?lat=" + data + "&appid=b72ce368d7a441149f85cdddf363df06&units=metric";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

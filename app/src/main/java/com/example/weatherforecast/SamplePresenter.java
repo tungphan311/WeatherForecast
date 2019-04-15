@@ -93,7 +93,7 @@ public class SamplePresenter {
     }
 
     private void setText(Location location) {
-        String appendValue = location.getLatitude() + ", " + location.getLongitude() + "\n";
+        String appendValue = location.getLatitude() + "," + location.getLongitude() + "\n";
         String newValue;
         CharSequence current = sampleView.getText();
 
