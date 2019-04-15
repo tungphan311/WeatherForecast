@@ -58,4 +58,7 @@
     <color name="primary_orange">#ff9800</color>
     <color name="primary_red">#e51c23</color>
     <color name="primary_gray">#737373</color>
+
+    <color name="color_toolbar_background">#48A307</color>
+    <color name="color_toolbar_background_end">#9DEA65</color>
 </resources>

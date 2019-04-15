@@ -23,6 +23,7 @@ public class ChooseCity extends Activity {
     ArrayList<City> listCity;
     CityApdapter adapter;
     ListView listView;
+    ImageView imgBack;
 
     public SharedPreferences preferences;
 
@@ -70,6 +71,7 @@ public class ChooseCity extends Activity {
         adapter = new CityApdapter(getApplicationContext(), listCity);
         listView = findViewById(R.id.listview_city);
         listView.setAdapter(adapter);
+        imgBack = findViewById(R.id.btn_thoat);
     }
 
     private void eventHandler() {
@@ -87,6 +89,13 @@ public class ChooseCity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("id", listCity.get(position).ID);
                 startActivity(intent);
+            }
+        });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
