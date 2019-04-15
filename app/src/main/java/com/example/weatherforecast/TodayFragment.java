@@ -1,11 +1,16 @@
 package com.example.weatherforecast;
 
 
+import android.app.ProgressDialog;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.yayandroid.locationmanager.configuration.LocationConfiguration;
+import com.yayandroid.locationmanager.constants.FailType;
+import com.yayandroid.locationmanager.constants.ProcessType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +35,12 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TodayFragment extends Fragment {
+public class TodayFragment extends LocationBaseFragment implements SamplePresenter.SampleView {
     TextView txtName, txtCurrentDate, txtTemp, txtHumidity, txtPressure, txtWind, txtVisibility;
     TextView txtSunset, txtSunrise, txtDescription;
     ImageView imgWeatherIcon;
+    private SamplePresenter samplePresenter;
+    private ProgressDialog progressDialog;
 
     public TodayFragment() {
         // Required empty public constructor
@@ -45,8 +55,101 @@ public class TodayFragment extends Fragment {
         initData(view);
 
         GetCurrentWeather("1580578");
+
+
         return view;
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (samplePresenter != null) samplePresenter.destroy();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        samplePresenter = new SamplePresenter(this);
+        getLocation();
+    }
+
+    @Override
+    public LocationConfiguration getLocationConfiguration() {
+        return Configurations.defaultConfiguration("Gimme the permission!", "Would you mind to turn GPS on?");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        samplePresenter.onLocationChanged(location);
+    }
+
+    @Override
+    public void onLocationFailed(@FailType int failType) {
+        samplePresenter.onLocationFailed(failType);
+    }
+
+    @Override
+    public void onProcessTypeChanged(@ProcessType int processType) {
+        samplePresenter.onProcessTypeChanged(processType);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getLocationManager().isWaitingForLocation()
+                && !getLocationManager().isAnyDialogShowing()) {
+            displayProgress();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismissProgress();
+    }
+
+    private void displayProgress() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.getWindow().addFlags(Window.FEATURE_NO_TITLE);
+            progressDialog.setMessage("Getting location...");
+        }
+
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public String getText() {
+
+        Log.d("zz", "onCreateView: txt" +txtName.getText().toString());
+        return txtName.getText().toString();
+
+    }
+
+    @Override
+    public void setText(String text) {
+        txtName.clearComposingText();
+        txtName.setText(text);
+        Log.d("zz", "onCreateView: txt" +txtName.getText().toString());
+    }
+
+    @Override
+    public void updateProgress(String text) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.setMessage(text);
+        }
+    }
+
+    @Override
+    public void dismissProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
 
     public void initData(View view) {
         txtName = view.findViewById(R.id.city_country);
@@ -147,5 +250,6 @@ public class TodayFragment extends Fragment {
 
         requestQueue.add(stringRequest);
     }
+
 
 }
