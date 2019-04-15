@@ -93,7 +93,10 @@ public class SearchActivity extends AppCompatActivity {
                 String country = jsonObject.getString("country");
                 String id = jsonObject.getString("id");
 
-                if (name.contains(keyword))
+                String city = name.toLowerCase();
+                String key = keyword.toLowerCase();
+
+                if (city.contains(key))
                     listCity.add(new City(name, country, id));
             }
             adapter.notifyDataSetChanged();
@@ -101,14 +104,6 @@ public class SearchActivity extends AppCompatActivity {
         catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean isContain(String Name, String keyword) {
-        for (int j = 0; j<keyword.length(); j++) {
-            if(!Name.contains(String.valueOf(keyword.charAt(j))))
-                return false;
-        }
-        return true;
     }
 
     public void EventHandler() {
