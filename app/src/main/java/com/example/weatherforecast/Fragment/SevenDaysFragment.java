@@ -19,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.weatherforecast.Activity.MainActivity;
 import com.example.weatherforecast.Adapter.TodayAdapter;
 import com.example.weatherforecast.Model.Weather;
 
@@ -65,9 +64,7 @@ public class SevenDaysFragment extends Fragment {
 
         initView(view);
 
-        MainActivity main = (MainActivity) getActivity();
-
-        initData(main.data);
+        initData("1580578");
 
         return view;
     }

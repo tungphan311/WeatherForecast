@@ -53,7 +53,7 @@ public class FavoriteCityAdapter extends BaseAdapter {
 
         tvHour.setText(city.Date);
         tvName.setText(city.Name);
-        tvTemp.setText(city.Temp);
+        tvTemp.setText(city.Temp + (char)0x00B0 + "C");
         Picasso.with(context).load(city.Icon).into(imgIcon);
 
         return view;

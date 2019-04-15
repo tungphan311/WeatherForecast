@@ -26,7 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChooseCity extends Activity {
     ImageView imgAdd;
@@ -35,9 +37,7 @@ public class ChooseCity extends Activity {
     ArrayList<City> listCity;
     FavoriteCityAdapter adapter;
     ArrayList<FavoriteCity> listFavoriteCity;
-
     ListView listView;
-    ImageView imgBack;
 
     public SharedPreferences preferences;
 
@@ -61,7 +61,8 @@ public class ChooseCity extends Activity {
             }
         }
 
-        initView();
+        if (listCity.size() > 0)
+            initView();
 
         eventHandler();
     }
@@ -75,7 +76,7 @@ public class ChooseCity extends Activity {
         ID += listCity.get(listCity.size()-1).ID;
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        String url = "https://api.openweathermap.org/data/2.5/group?id="+  ID +"3&units=metric&appid=b72ce368d7a441149f85cdddf363df06";
+        String url = "https://api.openweathermap.org/data/2.5/group?id="+ ID +"&units=metric&appid=b72ce368d7a441149f85cdddf363df06";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -86,8 +87,28 @@ public class ChooseCity extends Activity {
                     for (int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObjectCity = jsonArray.getJSONObject(i);
 
-                        
+                        JSONArray jsonArrayWeather = jsonObjectCity.getJSONArray("weather");
+                        JSONObject jsonObjectWeather = jsonArrayWeather.getJSONObject(0);
+                        String ic = jsonObjectWeather.getString("icon");
+                        String icon = "http://openweathermap.org/img/w/" + ic +".png";
+                        Toast.makeText(ChooseCity.this, icon, Toast.LENGTH_SHORT).show();
+
+                        JSONObject jsonObjectMain = jsonObjectCity.getJSONObject("main");
+                        String temp = jsonObjectMain.getString("temp");
+                        Double dou = Double.valueOf(temp);
+                        String Temp = String.valueOf(dou.intValue());
+
+                        String dt = jsonObjectCity.getString("dt");
+                        long l = Long.valueOf(dt);
+                        Date date = new Date(l*1000L);
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, HH:mm");
+                        String hour = simpleDateFormat.format(date);
+
+                        String name = jsonObjectCity.getString("name");
+
+                        listFavoriteCity.add(new FavoriteCity(name, hour, icon, Temp));
                     }
+                    adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -124,7 +145,6 @@ public class ChooseCity extends Activity {
         adapter = new FavoriteCityAdapter(getApplicationContext(), listFavoriteCity);
         listView = findViewById(R.id.listview_city);
         listView.setAdapter(adapter);
-        imgBack = findViewById(R.id.btn_thoat);
     }
 
     private void eventHandler() {
@@ -144,13 +164,6 @@ public class ChooseCity extends Activity {
                 startActivity(intent);
             }
         });
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void loadState() {
@@ -167,7 +180,6 @@ public class ChooseCity extends Activity {
 
                 listCity.add(new City(name, country, id));
             }
-            adapter.notifyDataSetChanged();
         }
 
         editor.clear();
@@ -192,5 +204,3 @@ public class ChooseCity extends Activity {
         editor.commit();
     }
 }
-
-
