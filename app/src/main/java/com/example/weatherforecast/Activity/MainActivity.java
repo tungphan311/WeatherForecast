@@ -1,5 +1,6 @@
 package com.example.weatherforecast.Activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -19,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
-    public String data = "1580578";
+    public String data;
+    Intent intent;
 
 
     @Override
@@ -37,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        intent = getIntent();
+        if (intent != null) {
+            String ID = intent.getStringExtra("id");
+
+            if (ID == null) {
+                data = "1580578";
+            }
+            else {
+                data = ID;
+            }
+        }
     }
 
 

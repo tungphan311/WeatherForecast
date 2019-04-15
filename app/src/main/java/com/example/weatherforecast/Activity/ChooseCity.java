@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -76,6 +77,15 @@ public class ChooseCity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseCity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("id", listCity.get(position).ID);
                 startActivity(intent);
             }
         });
