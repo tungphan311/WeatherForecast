@@ -86,7 +86,7 @@ public class ChooseCity extends Activity {
                     for (int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObjectCity = jsonArray.getJSONObject(i);
 
-
+                        
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
