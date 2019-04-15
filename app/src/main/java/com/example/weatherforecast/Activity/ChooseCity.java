@@ -10,9 +10,21 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.weatherforecast.Adapter.CityApdapter;
+import com.example.weatherforecast.Adapter.FavoriteCityAdapter;
 import com.example.weatherforecast.Model.City;
+import com.example.weatherforecast.Model.FavoriteCity;
 import com.example.weatherforecast.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -21,7 +33,9 @@ public class ChooseCity extends Activity {
     Intent intent;
 
     ArrayList<City> listCity;
-    CityApdapter adapter;
+    FavoriteCityAdapter adapter;
+    ArrayList<FavoriteCity> listFavoriteCity;
+
     ListView listView;
     ImageView imgBack;
 
@@ -47,7 +61,45 @@ public class ChooseCity extends Activity {
             }
         }
 
+        initView();
+
         eventHandler();
+    }
+
+    private void initView() {
+        String ID = "";
+        for (int i =0; i<listCity.size()-1; i++) {
+            ID += listCity.get(i).ID;
+            ID += ",";
+        }
+        ID += listCity.get(listCity.size()-1).ID;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String url = "https://api.openweathermap.org/data/2.5/group?id="+  ID +"3&units=metric&appid=b72ce368d7a441149f85cdddf363df06";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("list");
+
+                    for (int i=0; i<jsonArray.length(); i++) {
+                        JSONObject jsonObjectCity = jsonArray.getJSONObject(i);
+
+                        
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -68,7 +120,8 @@ public class ChooseCity extends Activity {
         imgAdd = findViewById(R.id.addCiy);
         intent = getIntent();
         listCity = new ArrayList<City>();
-        adapter = new CityApdapter(getApplicationContext(), listCity);
+        listFavoriteCity = new ArrayList<FavoriteCity>();
+        adapter = new FavoriteCityAdapter(getApplicationContext(), listFavoriteCity);
         listView = findViewById(R.id.listview_city);
         listView.setAdapter(adapter);
         imgBack = findViewById(R.id.btn_thoat);
