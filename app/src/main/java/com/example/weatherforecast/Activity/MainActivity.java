@@ -9,10 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.weatherforecast.R;
-import com.example.weatherforecast.Fragment.SevenDaysFragment;
 import com.example.weatherforecast.Fragment.TodayFragment;
 import com.example.weatherforecast.Fragment.TomorrowFragment;
+import com.example.weatherforecast.R;
+import com.example.weatherforecast.SevenDaysFragment;
 
 public class MainActivity extends AppCompatActivity {
 
