@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return "TODAY";
                 case 2:
-                    return "7 days";
+                    return "LATER";
             }
             return null;
         }
