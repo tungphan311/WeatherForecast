@@ -11,5 +11,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="location_settings">Location Settings</string>
+    <string name="location_settings_message">Location is not enabled. Do you wish to go to the settings menu?</string>
+    <string name="location_settings_button">Settings</string>
     <string name="title_activity_search_acitity">SearchAcitity</string>
 </resources>
