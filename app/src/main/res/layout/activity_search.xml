@@ -29,7 +29,7 @@
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:layout_height="wrap_content"
-            android:hint="Nhập tên thành phố">
+            android:hint="Enter city name">
 
         </EditText>
 
