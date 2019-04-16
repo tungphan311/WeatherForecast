@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ChooseCity" />
-        <activity android:name=".Activity.SearchActivity"></activity>
+        <activity android:name=".Activity.SearchActivity"/>
     </application>
 
 </manifest>

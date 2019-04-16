@@ -2,8 +2,8 @@ package com.example.weatherforecast.Fragment;
 
 
 import android.app.ProgressDialog;
-import android.location.Location;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,8 +23,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.weatherforecast.Activity.ChooseCity;
 import com.example.weatherforecast.Activity.MainActivity;
+import com.example.weatherforecast.Activity.SearchActivity;
 import com.example.weatherforecast.R;
-import com.example.weatherforecast.SamplePresenter;
 import com.squareup.picasso.Picasso;
 import com.yayandroid.locationmanager.base.LocationBaseFragment;
 import com.yayandroid.locationmanager.configuration.Configurations;
@@ -63,13 +63,9 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
         View view = inflater.inflate(R.layout.today, container, false);
         initData(view);
 
+        MainActivity main = (MainActivity) getActivity();
 
-//        GetCurrentWeather("1580578");
-
-
-//        MainActivity main = (MainActivity) getActivity();
-
-        //GetCurrentWeather(main.data);
+        GetCurrentWeather(main.data);
 
         initEvent();
 
@@ -220,6 +216,8 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
                             String icon = jsonObjectWeather.getString("icon");
 
                             Picasso.with(getActivity().getApplicationContext()).load("http://openweathermap.org/img/w/" + icon +".png")
+                                    .placeholder(R.drawable.ic_sun)
+                                    .error(R.drawable.ic_error)
                                     .into(imgWeatherIcon);
 
                             JSONObject jsonObjectMain = jsonObject.getJSONObject("main");
@@ -279,7 +277,6 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
 
         requestQueue.add(stringRequest);
     }
-
 
     public void initEvent() {
         imgMenu.setOnClickListener(new View.OnClickListener() {
