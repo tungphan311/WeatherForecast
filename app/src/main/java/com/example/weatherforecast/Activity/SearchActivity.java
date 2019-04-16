@@ -92,12 +92,17 @@ public class SearchActivity extends AppCompatActivity {
                 String name = jsonObject.getString("name");
                 String country = jsonObject.getString("country");
                 String id = jsonObject.getString("id");
+//                JSONObject jsonObjectMain = jsonObject.getJSONObject("sys");
+//                String lat = jsonObjectMain.getString("lat");
+//                String lon = jsonObjectMain.getString("lon");
+                String lat ="";
+                String lon ="";
 
                 String city = name.toLowerCase();
                 String key = keyword.toLowerCase();
 
                 if (city.contains(key))
-                    listCity.add(new City(name, country, id));
+                    listCity.add(new City(name, country, id, lat, lon));
             }
             adapter.notifyDataSetChanged();
         }
@@ -128,6 +133,8 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("city", listCity.get(position).Name);
                 intent.putExtra("country", listCity.get(position).Country);
                 intent.putExtra("id", listCity.get(position).ID);
+                intent.putExtra("lat", listCity.get(position).Lat);
+                intent.putExtra("lon",listCity.get(position).Lon);
                 startActivity(intent);
             }
         });

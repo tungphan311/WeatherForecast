@@ -1,13 +1,16 @@
 package com.example.weatherforecast.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.icu.util.Calendar;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +22,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.weatherforecast.Activity.MainActivity;
 import com.example.weatherforecast.Adapter.TodayAdapter;
 import com.example.weatherforecast.Model.Weather;
 import com.example.weatherforecast.R;
+import com.example.weatherforecast.SamplePresenter;
+import com.yayandroid.locationmanager.base.LocationBaseFragment;
+import com.yayandroid.locationmanager.configuration.Configurations;
+import com.yayandroid.locationmanager.configuration.LocationConfiguration;
+import com.yayandroid.locationmanager.constants.FailType;
+import com.yayandroid.locationmanager.constants.ProcessType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +47,13 @@ import java.util.Locale;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SevenDaysFragment extends Fragment {
+public class SevenDaysFragment extends LocationBaseFragment implements SamplePresenter.SampleView {
     ArrayList<Weather> listWeather;
     TodayAdapter adapter;
     ListView listView;
+    SamplePresenter samplePresenter;
+    ProgressDialog progressDialog;
+    MainActivity main;
 
     public SevenDaysFragment() {
         // Required empty public constructor
@@ -56,6 +69,9 @@ public class SevenDaysFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        samplePresenter = new SamplePresenter(this);
+
+        getLocation();
     }
 
     @Override
@@ -65,7 +81,8 @@ public class SevenDaysFragment extends Fragment {
 
         initView(view);
 
-        initData("1580578");
+        main=(MainActivity)getActivity();
+        initData(main.data);
 
         return view;
     }
@@ -142,4 +159,85 @@ public class SevenDaysFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (samplePresenter != null) samplePresenter.destroy();
+    }
+
+
+    @Override
+    public LocationConfiguration getLocationConfiguration() {
+        return Configurations.defaultConfiguration("Gimme the permission!", "Would you mind to turn GPS on?");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        samplePresenter.onLocationChanged(location);
+    }
+
+    @Override
+    public void onLocationFailed(@FailType int failType) {
+        samplePresenter.onLocationFailed(failType);
+    }
+
+    @Override
+    public void onProcessTypeChanged(@ProcessType int processType) {
+        samplePresenter.onProcessTypeChanged(processType);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getLocationManager().isWaitingForLocation()
+                && !getLocationManager().isAnyDialogShowing()) {
+            displayProgress();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismissProgress();
+    }
+
+    private void displayProgress() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.getWindow().addFlags(Window.FEATURE_NO_TITLE);
+            progressDialog.setMessage("Getting location...");
+        }
+
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public String getText() {
+
+
+        return main.data;
+
+    }
+
+    @Override
+    public void setText(String text) {
+        main.data=text;
+    }
+
+    @Override
+    public void updateProgress(String text) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.setMessage(text);
+        }
+    }
+
+    @Override
+    public void dismissProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 }

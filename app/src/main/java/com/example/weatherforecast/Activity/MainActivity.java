@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.weatherforecast.Fragment.TodayFragment;
 import com.example.weatherforecast.Fragment.TomorrowFragment;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -41,16 +41,21 @@ public class MainActivity extends AppCompatActivity {
 
         intent = getIntent();
         if (intent != null) {
-            String ID = intent.getStringExtra("id");
-
-            if (ID == null) {
+            String LAT = intent.getStringExtra("lat");
+            String DATA = intent.getStringExtra("data");
+            Log.d("coord", "onCreate: data "+DATA);
+            Log.d("coord", "onCreate: lat "+LAT);
+            String LON = intent.getStringExtra("lon");
+            if (LAT == null) {
 //                data = "1580578";
                 data="10.83&lon=106.67";
             }
             else {
-                data = ID;
+                data = LAT+"&lon="+LON;
             }
         }
+
+
     }
 
 

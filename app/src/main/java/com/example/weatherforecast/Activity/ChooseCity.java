@@ -54,9 +54,11 @@ public class ChooseCity extends Activity {
             String name = intent.getStringExtra("city");
             String country = intent.getStringExtra("country");
             String id = intent.getStringExtra("id");
+            String lat = intent.getStringExtra("lat");
+            String lon = intent.getStringExtra("lon");
 
             if (name != null && country != null && id != null) {
-                listCity.add(new City(name, country, id));
+                listCity.add(new City(name, country, id, lat, lon));
                 adapter.notifyDataSetChanged();
             }
         }
@@ -177,8 +179,9 @@ public class ChooseCity extends Activity {
                 String name = preferences.getString("Name " + i, "");
                 String id = preferences.getString("ID " + i, "");
                 String country = preferences.getString("Country " + i, "");
-
-                listCity.add(new City(name, country, id));
+                String lat = preferences.getString("Lat"+i,"");
+                String lon = preferences.getString("Lon", "");
+                listCity.add(new City(name, country, id, lat,lon));
             }
         }
 
@@ -198,6 +201,8 @@ public class ChooseCity extends Activity {
                 editor.putString("Name " + i, listCity.get(i).Name);
                 editor.putString("Country " + i, listCity.get(i).Country);
                 editor.putString("ID " + i, listCity.get(i).ID);
+                editor.putString("LAT" + i, listCity.get(i).Lat);
+                editor.putString("LON" + i, listCity.get(i).Lon);
             }
         }
 

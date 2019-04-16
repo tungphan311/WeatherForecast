@@ -25,6 +25,7 @@ import com.example.weatherforecast.Activity.ChooseCity;
 import com.example.weatherforecast.Activity.MainActivity;
 import com.example.weatherforecast.Activity.SearchActivity;
 import com.example.weatherforecast.R;
+import com.example.weatherforecast.SamplePresenter;
 import com.squareup.picasso.Picasso;
 import com.yayandroid.locationmanager.base.LocationBaseFragment;
 import com.yayandroid.locationmanager.configuration.Configurations;
@@ -64,10 +65,11 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
         initData(view);
 
         MainActivity main = (MainActivity) getActivity();
-
         GetCurrentWeather(main.data);
 
         initEvent();
+        samplePresenter = new SamplePresenter(this);
+        getLocation();
 
         return view;
     }
@@ -81,8 +83,8 @@ public class TodayFragment extends LocationBaseFragment implements SamplePresent
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        samplePresenter = new SamplePresenter(this);
-        getLocation();
+//        samplePresenter = new SamplePresenter(this);
+//        getLocation();
     }
 
     @Override

@@ -1,11 +1,16 @@
 package com.example.weatherforecast.Fragment;
 
 
+import android.app.ProgressDialog;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -18,6 +23,12 @@ import com.example.weatherforecast.Activity.MainActivity;
 import com.example.weatherforecast.Model.Weather;
 import com.example.weatherforecast.R;
 import com.example.weatherforecast.Adapter.TodayAdapter;
+import com.example.weatherforecast.SamplePresenter;
+import com.yayandroid.locationmanager.base.LocationBaseFragment;
+import com.yayandroid.locationmanager.configuration.Configurations;
+import com.yayandroid.locationmanager.configuration.LocationConfiguration;
+import com.yayandroid.locationmanager.constants.FailType;
+import com.yayandroid.locationmanager.constants.ProcessType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +41,19 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TomorrowFragment extends Fragment {
+public class TomorrowFragment extends LocationBaseFragment implements SamplePresenter.SampleView {
     ArrayList<Weather> listWeather;
     TodayAdapter adapter;
     ListView listView;
+    SamplePresenter samplePresenter;
+    ProgressDialog progressDialog;
+    String coords;
 
+    MainActivity main;
     public TomorrowFragment() {
         // Required empty public constructor
     }
+
 
     public static TomorrowFragment newInstance(String param1, String param2) {
         TomorrowFragment fragment = new TomorrowFragment();
@@ -49,6 +65,11 @@ public class TomorrowFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        samplePresenter = new SamplePresenter(this);
+        MainActivity main = (MainActivity) getActivity();
+//        initData(main.data);
+        coords=main.data;
+        getLocation();
     }
 
     @Override
@@ -59,10 +80,90 @@ public class TomorrowFragment extends Fragment {
         initView(view);
 
         MainActivity main = (MainActivity) getActivity();
-
         initData(main.data);
+        coords=main.data;
 
         return view;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (samplePresenter != null) samplePresenter.destroy();
+    }
+
+
+    @Override
+    public LocationConfiguration getLocationConfiguration() {
+        return Configurations.defaultConfiguration("Gimme the permission!", "Would you mind to turn GPS on?");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        samplePresenter.onLocationChanged(location);
+    }
+
+    @Override
+    public void onLocationFailed(@FailType int failType) {
+        samplePresenter.onLocationFailed(failType);
+    }
+
+    @Override
+    public void onProcessTypeChanged(@ProcessType int processType) {
+        samplePresenter.onProcessTypeChanged(processType);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getLocationManager().isWaitingForLocation()
+                && !getLocationManager().isAnyDialogShowing()) {
+            displayProgress();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismissProgress();
+    }
+
+    private void displayProgress() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.getWindow().addFlags(Window.FEATURE_NO_TITLE);
+            progressDialog.setMessage("Getting location...");
+        }
+
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    public String getText() {
+
+        return coords;
+
+    }
+
+    @Override
+    public void setText(String text) {
+        coords=text;
+    }
+
+    @Override
+    public void updateProgress(String text) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.setMessage(text);
+        }
+    }
+
+    @Override
+    public void dismissProgress() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     public void initView(View view) {
